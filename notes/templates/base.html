@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/boostrap.min.css' %}">    <!-- CSS only -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Keep Notes</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADFElEQVR4AexUA5AcURScy84e13u2zUJs27aTYmzbVvGMUmzbybIU286aL/+l7searZ0rpat6PN39p/8f5j9+gwzC29VM53zdC5hJuIlwA+EMztc9hA9hX8LlhOd+4HIPrvf5rMkB/RMUQcaFLXOAslliGJKec7qeqBAZiGY/hgPmz2ySCcZ5vQB5YUwryA6TQlGPOnjO+TpqoabHAc4TwZKedcEwl5pwuP6LACzDtJEI2Zciln0tYJiOvwxQNyYYJjZI9wpR65sAyiBW8PFAq4awp2UDICFe/TJAy5YtYfny5V4hatEAYqGwaGx6ovXdgC5wsWNzIGHe/DLAvHnzwFtYunQpVC/JPB8fxj04Oc52v1d7aBweYvStVWs67wHMZjMGCJBIhFdnzcp19e+VYBH7sQ4y+ifkuu9fA6jVapg2bRrodDrQarV4/Ffic99CIGB6paRIjM+e9YEnT3pDRESAgaET8G8BVCoVdomioNFo/ql3fO7bLxAUxL7YvbsFvHzZFxYsKHCIROxpasZ7BbNnz7B37BhjQnO9vgsEBrJm4pFEzf61Ak7EuhCPHz8GicTfrlJ1AgzQv3+CMSBAsJkacamAE+kc6Nmzs2nChCwHmp861RaI+XuiL+MUwEMQw1MQHh5kefiwF7x40Reys+UGMhmHUxNeKli4cCE4nU5wuVyQk5Ns2ratnhtHX1TU0C0SCW8SbQEa8FbBmjVrwOFwQHFxkTs3V2nGkT961AtCQvxx2TWmBrxW8P79e1AoxPYTJ9oAjn7SpCybWMzuoOK8VDBjxgy4f/8+ICZPHm/t0SPeguY6XReQyQLsRDOWivNWwb1798BgMICvkHVNmZLtevq0D3TrFmfG/wAV5r2CK1euQFxMuKVl4wJTTLTUEh4ut5pMJqixAMXFxdC7SxNT6ZapbrEo0HHkyBF3VVUVBuhbIwEmTpxgi40OdUWEh9lw7iBQCzVrJMCnebi7fTcy1P/24sULEJf+Dnj06NH/79+/g5gUOSBaTU3tCySLUY5VVVW/gJrl5HRMyqmBie2YjAIAui0xFzn56d8AAAAASUVORK5CYII=">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <ul class="nav navbar-nav">
+
+            {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'notes:home_page' %}">Keep Notes</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link add" href="#"> + Add Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link add" href="{% url 'notes:settings' %}">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link add" href="{% url 'notes:logout' %}">Log Out</a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'notes:index' %}">Keep Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link add" href="{% url 'notes:register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link add" href="{% url 'notes:login' %}">Login</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</header>
+{% block body %}
+{% endblock body %}
+<script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

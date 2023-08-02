@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+
+
+    <div class="container" style="">
+        <br>
+        <h1>Recent Notes</h1>
+        <div class="notes">
+
+            {% for note in notes %}
+                <div class="note mb-4">
+                    <h2 class="text-info">{{ note.title }}</h2>
+                    <p>{{ note.description|safe }}</p>
+                    <div class="options">
+                        <a href="{% url 'notes:update' pk=note.pk %}" class="btn btn-success">Update</a>
+                        <a href="{% url 'notes:delete' pk=note.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        {% if count|length > 2 %}
+            <nav aria-label="Page navigation example" class="container d-flex justify-content-xxl-center" style="justify-content: center">
+                <ul class="pagination">
+                    {% if notes.has_previous %}
+                        <li class="page-item ">
+                            <a class="page-link"
+                               href="{% url 'notes:home_page' %}?page={{ notes.previous_page_number }}"
+                               aria-label="Previous"><span aria-hidden="true">&laquo</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for stuff in stuffs.page_range %}
+                        <li class="page-item {% if notes.number == stuff %}active{% endif %}"><a class="page-link"
+                                                                                                href="{% url 'notes:home_page' %}?page={{ stuff }}">{{ stuff }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if notes.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'notes:home_page' %}?page={{ notes.next_page_number }}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+    <div class="add-modal" id="add-modal">
+        <div class="form">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3>Add Note</h3>
+                {{ form |crispy }}
+                {{ form.media }}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger close-btn" onclick="closeModal('add-modal')">Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock body %}
+   
